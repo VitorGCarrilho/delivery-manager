@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,7 +31,8 @@ public class ShipmentStatus implements Serializable {
 	private String city;
 	
 	@JsonIgnore
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="shipment_code")
 	private Shipment shipment; 
 	
 	public ShipmentStatus() {

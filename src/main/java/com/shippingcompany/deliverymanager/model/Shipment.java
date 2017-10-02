@@ -35,7 +35,7 @@ public class Shipment implements Serializable {
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date expectedDeliveryDate;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "shipment")
 	private List<ShipmentStatus> shipmentStatus;
 	
 	public Shipment() {
