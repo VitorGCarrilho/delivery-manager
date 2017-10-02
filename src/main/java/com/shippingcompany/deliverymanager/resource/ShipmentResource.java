@@ -3,6 +3,8 @@ package com.shippingcompany.deliverymanager.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +28,16 @@ public class ShipmentResource {
 	private ShipmentService shipmentService;
 
 	@PostMapping
-	public ResponseEntity<ShipmentResponse> sendMessage(@RequestBody Shipment shipment) {
-		String shipmentCode = shipmentService.generateShipmentCode(shipment);
-		ShipmentResponse shipmentResponse = new ShipmentResponse(shipmentCode);
+	public ResponseEntity<ShipmentResponse> postShipment(@RequestBody Shipment shipment) {
+		ShipmentResponse shipmentResponse = new ShipmentResponse(shipment.getShipmentCode());
 		shipmentProducer.produce(shipment);
-		return new ResponseEntity<>(shipmentResponse, HttpStatus.CREATED);
+		return new ResponseEntity<ShipmentResponse>(shipmentResponse, HttpStatus.CREATED);
 	}
+	
+	@GetMapping("{shipmentCode}")
+	public ResponseEntity<Shipment> getShipment(@PathVariable String shipmentCode) {
+		Shipment shipment = shipmentService.get(shipmentCode);
+		return new ResponseEntity<Shipment>(shipment, HttpStatus.OK);
+	}
+	
 }

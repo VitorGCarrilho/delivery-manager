@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.shippingcompany.deliverymanager.util.ApiUtils;
+
 
 @Entity
 public class Shipment implements Serializable {
@@ -30,13 +32,13 @@ public class Shipment implements Serializable {
 	
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date expectedDeliveryDate;
+	
+	public Shipment() {
+		this.shipmentCode = ApiUtils.getUIDCode();
+	}
 
 	public String getShipmentCode() {
 		return shipmentCode;
-	}
-
-	public void setShipmentCode(String id) {
-		this.shipmentCode = id;
 	}
 
 	public Address getAddress() {

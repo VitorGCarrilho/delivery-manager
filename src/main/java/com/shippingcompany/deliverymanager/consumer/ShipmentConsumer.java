@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.shippingcompany.deliverymanager.model.Shipment;
 import com.shippingcompany.deliverymanager.service.ShipmentService;
-import static com.shippingcompany.deliverymanager.util.ApiUtils.SHIPMENT_QUEUE_VARIABLE;
  
 @Component
 public class ShipmentConsumer extends AbstractConsumer<Shipment> {
@@ -14,7 +13,7 @@ public class ShipmentConsumer extends AbstractConsumer<Shipment> {
 	@Autowired
 	private ShipmentService shipmentService;
 
-	@JmsListener(destination = SHIPMENT_QUEUE_VARIABLE)
+	@JmsListener(destination = "${app.queue.shipment}")
     public void consume(Shipment shipment) {
         shipmentService.save(shipment);
     }

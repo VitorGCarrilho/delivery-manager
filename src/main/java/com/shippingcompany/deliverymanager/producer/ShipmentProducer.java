@@ -5,12 +5,11 @@ import javax.jms.Queue;
 import org.springframework.stereotype.Component;
 
 import com.shippingcompany.deliverymanager.model.Shipment;
-import static com.shippingcompany.deliverymanager.util.ApiUtils.SHIPMENT_QUEUE_VARIABLE;
  
 @Component
 public class ShipmentProducer extends AbstractProducer<Shipment> { 
 	
-	@Resource(name = SHIPMENT_QUEUE_VARIABLE)
+	@Resource(name = "shipmentQueue")
     protected Queue queue;  
 	
     public void produce(Shipment shipment) {
