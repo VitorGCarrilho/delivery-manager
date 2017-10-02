@@ -2,11 +2,13 @@ package com.shippingcompany.deliverymanager.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -33,8 +35,15 @@ public class Shipment implements Serializable {
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date expectedDeliveryDate;
 	
+	@OneToMany
+	private List<ShipmentStatus> shipmentStatus;
+	
 	public Shipment() {
 		this.shipmentCode = ApiUtils.getUIDCode();
+	}
+	
+	public Shipment(String shipmentCode) {
+		this.shipmentCode = shipmentCode;
 	}
 
 	public String getShipmentCode() {
@@ -68,4 +77,13 @@ public class Shipment implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public List<ShipmentStatus> getShipmentStatus() {
+		return shipmentStatus;
+	}
+
+	public void setShipmentStatus(List<ShipmentStatus> shipmentStatus) {
+		this.shipmentStatus = shipmentStatus;
+	}
+	
 }

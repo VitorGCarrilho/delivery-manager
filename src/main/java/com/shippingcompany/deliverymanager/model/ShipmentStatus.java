@@ -3,8 +3,14 @@ package com.shippingcompany.deliverymanager.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.shippingcompany.deliverymanager.model.enumeration.ShipmentStatusEnum;
+import com.shippingcompany.deliverymanager.util.ApiUtils;
 
 @Entity
 public class ShipmentStatus implements Serializable {
@@ -16,23 +22,29 @@ public class ShipmentStatus implements Serializable {
 	@Id
 	private String shipmentStatusCode;
 	
-	private String shipmentStatus;
+	private ShipmentStatusEnum shipmentStatus;
 	
 	private Date statusChangeDate;
+	
+	private String city;
+	
+	@JsonIgnore
+	@OneToOne(cascade=CascadeType.PERSIST)
+	private Shipment shipment; 
+	
+	public ShipmentStatus() {
+		this.shipmentStatusCode = ApiUtils.getUIDCode();
+	}
 
 	public String getShipmentStatusCode() {
 		return shipmentStatusCode;
 	}
 
-	public void setShipmentStatusCode(String shipmentStatusCode) {
-		this.shipmentStatusCode = shipmentStatusCode;
-	}
-
-	public String getShipmentStatus() {
+	public ShipmentStatusEnum getShipmentStatus() {
 		return shipmentStatus;
 	}
 
-	public void setShipmentStatus(String shipmentStatus) {
+	public void setShipmentStatus(ShipmentStatusEnum shipmentStatus) {
 		this.shipmentStatus = shipmentStatus;
 	}
 
@@ -42,5 +54,22 @@ public class ShipmentStatus implements Serializable {
 
 	public void setStatusChangeDate(Date statusChangeDate) {
 		this.statusChangeDate = statusChangeDate;
-	}	
+	}
+
+	public Shipment getShipment() {
+		return shipment;
+	}
+
+	public void setShipment(Shipment shipment) {
+		this.shipment = shipment;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
 }

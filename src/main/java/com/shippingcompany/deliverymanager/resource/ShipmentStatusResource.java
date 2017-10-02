@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shippingcompany.deliverymanager.model.Shipment;
 import com.shippingcompany.deliverymanager.model.ShipmentStatus;
 import com.shippingcompany.deliverymanager.producer.AbstractProducer;
 
@@ -24,6 +25,7 @@ public class ShipmentStatusResource {
 	
 	@PostMapping("{shipmentCode}")
 	public ResponseEntity<?> createStatus(@PathVariable String shipmentCode, @RequestBody ShipmentStatus shipmentStatus) {
+		shipmentStatus.setShipment(new Shipment(shipmentCode));
 		shipmentStatusProducer.produce(shipmentStatus);
 		return new ResponseEntity(shipmentCode, HttpStatus.CREATED);
 	}
