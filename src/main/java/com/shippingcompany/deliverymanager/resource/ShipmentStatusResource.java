@@ -14,19 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shippingcompany.deliverymanager.model.Shipment;
 import com.shippingcompany.deliverymanager.model.ShipmentStatus;
+import com.shippingcompany.deliverymanager.model.ShipmentStatusResponse;
 import com.shippingcompany.deliverymanager.producer.AbstractProducer;
 
 @RestController
 @RequestMapping(value = { API + VERSION_V1 + "shipment-status" })
 public class ShipmentStatusResource {
-	
+
 	@Autowired
 	private AbstractProducer<ShipmentStatus> shipmentStatusProducer;
-	
+
 	@PostMapping("{shipmentCode}")
-	public ResponseEntity<?> createStatus(@PathVariable String shipmentCode, @RequestBody ShipmentStatus shipmentStatus) {
+	public ResponseEntity<ShipmentStatusResponse> createStatus(@PathVariable String shipmentCode,
+			@RequestBody ShipmentStatus shipmentStatus) {
 		shipmentStatus.setShipment(new Shipment(shipmentCode));
 		shipmentStatusProducer.produce(shipmentStatus);
-		return new ResponseEntity(shipmentCode, HttpStatus.CREATED);
+		return new ResponseEntity<ShipmentStatusResponse>(
+				new ShipmentStatusResponse(shipmentCode, shipmentStatus.getShipmentStatusCode()), HttpStatus.CREATED);
 	}
 }
