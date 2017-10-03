@@ -1,8 +1,9 @@
 package com.shippingcompany.deliverymanager.producer;
 
-import javax.annotation.Resource;
 import javax.jms.Queue;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.shippingcompany.deliverymanager.model.ShipmentStatus;
@@ -10,8 +11,10 @@ import com.shippingcompany.deliverymanager.model.ShipmentStatus;
 @Component
 public class ShipmentStatusProducer extends AbstractProducer<ShipmentStatus> {
 
-	@Resource(name = "shipmentStatusQueue")
-	protected Queue queue;  
+	@Autowired
+    public ShipmentStatusProducer (@Qualifier("shipmentStatusQueue") Queue queue){
+		super(queue);
+	}
 	
 	@Override
 	public void produce(ShipmentStatus shipmnetStatus) {
