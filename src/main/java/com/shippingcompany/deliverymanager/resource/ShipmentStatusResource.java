@@ -3,6 +3,8 @@ package com.shippingcompany.deliverymanager.resource;
 import static com.shippingcompany.deliverymanager.util.ApiUtils.API;
 import static com.shippingcompany.deliverymanager.util.ApiUtils.VERSION_V1;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class ShipmentStatusResource {
 
 	@PostMapping("{shipmentCode}")
 	public ResponseEntity<ShipmentStatusResponse> createStatus(@PathVariable String shipmentCode,
-			@RequestBody ShipmentStatus shipmentStatus) {
+			@Valid @RequestBody ShipmentStatus shipmentStatus) {
 		shipmentStatus.setShipment(new Shipment(shipmentCode));
 		shipmentStatusProducer.produce(shipmentStatus);
 		return new ResponseEntity<ShipmentStatusResponse>(

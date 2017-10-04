@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shippingcompany.deliverymanager.model.enumeration.ShipmentStatusEnum;
@@ -23,13 +26,18 @@ public class ShipmentStatus implements Serializable {
 	@Id
 	private String shipmentStatusCode;
 	
+	@NotNull
+	@Column(nullable = false)
 	private ShipmentStatusEnum shipmentStatus;
 	
 	private Date statusChangeDate;
 	
+	@NotNull
+	@Size(max=64)
 	private String city;
 	
 	@JsonIgnore
+	@NotNull
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="shipment_code")
 	private Shipment shipment; 

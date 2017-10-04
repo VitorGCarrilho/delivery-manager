@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 import com.shippingcompany.deliverymanager.util.ApiUtils;
 
@@ -26,6 +28,7 @@ public class Shipment implements Serializable {
 	@Id
 	private String shipmentCode;
 	
+	@NotNull
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Address address;
 	

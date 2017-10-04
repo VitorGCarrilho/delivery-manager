@@ -17,6 +17,8 @@ import com.shippingcompany.deliverymanager.service.ShipmentService;
 
 import static com.shippingcompany.deliverymanager.util.ApiUtils.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = { API + VERSION_V1 + "shipment" })
 public class ShipmentResource {
@@ -28,7 +30,7 @@ public class ShipmentResource {
 	private ShipmentService shipmentService;
 
 	@PostMapping
-	public ResponseEntity<ShipmentResponse> postShipment(@RequestBody Shipment shipment) {
+	public ResponseEntity<ShipmentResponse> postShipment(@Valid @RequestBody Shipment shipment) {
 		ShipmentResponse shipmentResponse = new ShipmentResponse(shipment.getShipmentCode());
 		shipmentProducer.produce(shipment);
 		return new ResponseEntity<ShipmentResponse>(shipmentResponse, HttpStatus.CREATED);
