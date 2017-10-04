@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
 
 public abstract class AbstractProducer<T> {
-	@Autowired
-    protected JmsMessagingTemplate jmsMessagingTemplate;
 	
-	protected Queue queue;  
+	@Autowired
+    private JmsMessagingTemplate jmsMessagingTemplate;
+	
+	private Queue queue;  
 	
 	public AbstractProducer(Queue queue) {
 		this.queue = queue;
 	}
     
-    public abstract void produce(T t);
+    public void produce(T t){
+    	this.jmsMessagingTemplate.convertAndSend(queue, t);
+    }
+    
 }

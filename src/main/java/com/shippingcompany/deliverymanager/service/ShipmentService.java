@@ -13,6 +13,9 @@ public class ShipmentService {
 	@Autowired
 	private ShipmentRepository shipmentRepository;
 	
+	/**
+	 * This method saves the shipment.
+	 * **/
 	public void save(Shipment shipment){
 		shipmentRepository.save(shipment);
 	}
@@ -29,6 +32,9 @@ public class ShipmentService {
 		Shipment shipment = null;
 		try {
 			shipment = shipmentRepository.findOne(shipmentCode);
+			if (shipment == null) {
+				throw new NotFoundException();
+			}
 		} catch (Exception e) {
 			throw new NotFoundException();
 		}

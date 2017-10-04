@@ -10,15 +10,10 @@ import com.shippingcompany.deliverymanager.model.ShipmentStatus;
 
 @Component
 public class ShipmentStatusProducer extends AbstractProducer<ShipmentStatus> {
-
+	
 	@Autowired
     public ShipmentStatusProducer (@Qualifier("shipmentStatusQueue") Queue queue){
 		super(queue);
 	}
 	
-	@Override
-	public void produce(ShipmentStatus shipmnetStatus) {
-		this.jmsMessagingTemplate.convertAndSend(queue, shipmnetStatus);
-	}
-
 }
