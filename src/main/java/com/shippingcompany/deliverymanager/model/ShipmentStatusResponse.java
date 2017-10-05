@@ -1,9 +1,15 @@
 package com.shippingcompany.deliverymanager.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ShipmentStatusResponse {
+public class ShipmentStatusResponse implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7349687290441262997L;
+
 	private String shipmentCode;
 	
 	private String shipmentStatusCode;

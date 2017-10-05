@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shippingcompany.deliverymanager.model.Shipment;
 import com.shippingcompany.deliverymanager.model.ShipmentStatus;
 import com.shippingcompany.deliverymanager.model.ShipmentStatusResponse;
-import com.shippingcompany.deliverymanager.producer.AbstractProducer;
+import com.shippingcompany.deliverymanager.service.ShipmentStatusService;
 
 @RestController
 @RequestMapping(value = { API + VERSION_V1 + "shipment-status" })
 public class ShipmentStatusResource {
-
+	
 	@Autowired
-	private AbstractProducer<ShipmentStatus> shipmentStatusProducer;
+	private ShipmentStatusService shipmentStatusService;
 
 	@PostMapping("{shipmentCode}")
 	public ResponseEntity<ShipmentStatusResponse> createStatus(@PathVariable String shipmentCode,
 			@Valid @RequestBody ShipmentStatus shipmentStatus) {
 		shipmentStatus.setShipment(new Shipment(shipmentCode));
-		shipmentStatusProducer.produce(shipmentStatus);
+		shipmentStatusService.produce(shipmentStatus);
 		return new ResponseEntity<ShipmentStatusResponse>(
 				new ShipmentStatusResponse(shipmentCode, shipmentStatus.getShipmentStatusCode()), HttpStatus.CREATED);
 	}

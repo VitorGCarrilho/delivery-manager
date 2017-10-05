@@ -12,7 +12,7 @@ import com.shippingcompany.deliverymanager.model.enumeration.Authority;
 public class UsersConfig {
 	
 	@Bean
-	public User rootUser(@Value("${app.user.root.email}") String rootUser, @Value("${app.user.root.password}") String rootPassword, @Value("${app.user.root.authority}")Authority rootAuthority){
+	public User rootUser(@Value("${app.api.user.email}") String rootUser, @Value("${app.api.user.password}") String rootPassword, @Value("${app.api.user.authority}")Authority rootAuthority){
 		User user = new User();
 		user.setUserName(rootUser);
 		user.setAuthority(rootAuthority);

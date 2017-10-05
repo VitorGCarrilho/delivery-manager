@@ -37,7 +37,6 @@ public class ShipmentStatus implements Serializable {
 	private String city;
 	
 	@JsonIgnore
-	@NotNull
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="shipment_code")
 	private Shipment shipment; 

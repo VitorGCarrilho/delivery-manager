@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 import com.shippingcompany.deliverymanager.util.ApiUtils;
 
@@ -75,10 +74,6 @@ public class Shipment implements Serializable {
 
 	public void setExpectedDeliveryDate(Date expectedDeliveryDate) {
 		this.expectedDeliveryDate = expectedDeliveryDate;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public List<ShipmentStatus> getShipmentStatus() {

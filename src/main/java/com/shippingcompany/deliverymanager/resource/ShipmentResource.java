@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shippingcompany.deliverymanager.model.Shipment;
 import com.shippingcompany.deliverymanager.model.ShipmentResponse;
-import com.shippingcompany.deliverymanager.producer.AbstractProducer;
 import com.shippingcompany.deliverymanager.service.ShipmentService;
 
 import static com.shippingcompany.deliverymanager.util.ApiUtils.*;
@@ -24,15 +23,12 @@ import javax.validation.Valid;
 public class ShipmentResource {
 
 	@Autowired
-	private AbstractProducer<Shipment> shipmentProducer;
-
-	@Autowired
 	private ShipmentService shipmentService;
 
 	@PostMapping
 	public ResponseEntity<ShipmentResponse> postShipment(@Valid @RequestBody Shipment shipment) {
 		ShipmentResponse shipmentResponse = new ShipmentResponse(shipment.getShipmentCode());
-		shipmentProducer.produce(shipment);
+		shipmentService.produce(shipment);
 		return new ResponseEntity<ShipmentResponse>(shipmentResponse, HttpStatus.CREATED);
 	}
 	

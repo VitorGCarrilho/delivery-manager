@@ -25,7 +25,7 @@ public abstract class AbstractProducer<T> {
     
     public void produce(T t){
     	this.jmsMessagingTemplate.convertAndSend(queue, t);
-    	logger.debug("jms message converted and sended");
+    	logger.debug("jms message converted and sended: {}", t);
     }
     
 }

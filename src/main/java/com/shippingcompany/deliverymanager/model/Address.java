@@ -22,11 +22,11 @@ public class Address implements Serializable  {
 	private long id;
 	
 	@NotNull
+	@Min(0)
 	@Column(nullable=false)
 	private long postalCode;
 	
 	@NotNull
-	@Min(0)
 	@Column(nullable=false)
 	private String address;
 
@@ -53,10 +53,5 @@ public class Address implements Serializable  {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 	
 }
