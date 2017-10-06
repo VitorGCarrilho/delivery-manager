@@ -15,7 +15,6 @@ public class ShipmentConsumer extends AbstractConsumer<Shipment> {
 	/**
 	 * ShipmentService will execute the business logic
 	 * **/
-	@Autowired
 	private ShipmentService shipmentService;
 	
 	/**
@@ -38,5 +37,10 @@ public class ShipmentConsumer extends AbstractConsumer<Shipment> {
 			throw e;
 		}
     }
+	
+	@Autowired
+	public ShipmentConsumer(ShipmentService shipmentService) {
+		this.shipmentService = shipmentService;
+	}
  
 }

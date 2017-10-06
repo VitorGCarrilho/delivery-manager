@@ -10,16 +10,15 @@ import com.shippingcompany.deliverymanager.exception.NotFoundException;
 import com.shippingcompany.deliverymanager.exception.ServiceUnavaliableException;
 import com.shippingcompany.deliverymanager.model.Shipment;
 import com.shippingcompany.deliverymanager.producer.AbstractProducer;
+import com.shippingcompany.deliverymanager.producer.ShipmentProducer;
 import com.shippingcompany.deliverymanager.repository.ShipmentRepository;
 
 @Service
 @Transactional
 public class ShipmentService {
 	
-	@Autowired
 	private ShipmentRepository shipmentRepository;
 	
-	@Autowired
 	private AbstractProducer<Shipment> shipmentProducer;
 	
 	/**
@@ -65,5 +64,11 @@ public class ShipmentService {
 			logger.error("An error occurs when trying produce the shipment {}", shipment.getShipmentCode(), e);
 			throw new ServiceUnavaliableException("An error occurs when trying produce the shipment");
 		}
+	}
+	
+	@Autowired
+	public ShipmentService(ShipmentProducer shipmentProducer, ShipmentRepository shipmentRepository){
+		this.shipmentProducer = shipmentProducer;
+		this.shipmentRepository = shipmentRepository;
 	}
 }

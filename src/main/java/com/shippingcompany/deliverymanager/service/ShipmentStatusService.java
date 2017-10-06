@@ -14,10 +14,9 @@ import com.shippingcompany.deliverymanager.repository.ShipmentStatusRepository;
 @Service
 @Transactional
 public class ShipmentStatusService {
-	@Autowired
+
 	private ShipmentStatusRepository shipmentStatusRepository;
 
-	@Autowired
 	private AbstractProducer<ShipmentStatus> shipmentStatusProducer;
 
 	/**
@@ -29,7 +28,7 @@ public class ShipmentStatusService {
 		shipmentStatusRepository.save(shipmentStatus);
 	}
 
-	public void produce(ShipmentStatus shipmentStatus) {
+	public void produce(ShipmentStatus shipmentStatus) throws ServiceUnavaliableException {
 		try {
 			shipmentStatusProducer.produce(shipmentStatus);
 		} catch (Exception e) {
@@ -38,6 +37,12 @@ public class ShipmentStatusService {
 			throw new ServiceUnavaliableException("An error occurs when trying produce the shipment status");
 		}
 
+	}
+	
+	@Autowired
+	public ShipmentStatusService(ShipmentStatusRepository shipmentStatusRepository, AbstractProducer<ShipmentStatus> shipmentStatusProducer){
+		this.shipmentStatusRepository = shipmentStatusRepository;
+		this.shipmentStatusProducer = shipmentStatusProducer;
 	}
 
 }

@@ -34,4 +34,5 @@ public class ShipmentStatusResource {
 		return new ResponseEntity<ShipmentStatusResponse>(
 				new ShipmentStatusResponse(shipmentCode, shipmentStatus.getShipmentStatusCode()), HttpStatus.CREATED);
 	}
+	
 }
