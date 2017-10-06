@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http	
 			.authorizeRequests()
 					.antMatchers("/api/v1/**").hasAuthority(Authority.API_USER.toString())
-					.antMatchers("/swagger-ui.html").permitAll()
+					.antMatchers("/swagger**").permitAll()
 					.anyRequest().authenticated()
 					.and().csrf().disable()
 			.httpBasic();
